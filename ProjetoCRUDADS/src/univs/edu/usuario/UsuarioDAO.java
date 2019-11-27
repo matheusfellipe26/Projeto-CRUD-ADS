@@ -1,4 +1,3 @@
-
 package univs.edu.usuario;
 
 import java.util.List;
@@ -10,32 +9,34 @@ import univs.edu.util.HibernateUtil;
 
 
 public class UsuarioDAO {
+    
     private Session sessao;
     private Transaction transacao;
     
     public void salvar(Usuario usuario){
-        sessao = HibernateUtil.getSessionFactory().openSession();
+        sessao = HibernateUtil.
+                getSessionFactory().openSession();
         transacao = sessao.beginTransaction();
-        if (usuario.getIdUsuario() == 0){
+        if(usuario.getIdUsuario() == 0){
             sessao.save(usuario);
             JOptionPane.showMessageDialog(null, "Usuário Cadastrado!");
-            }else{
-            sessao.update(usuario) ;
+        }else{
+            sessao.update(usuario);
             JOptionPane.showMessageDialog(null, "Usuário Editado!");
         }
-        sessao.save(usuario);
         transacao.commit();
         sessao.close();
-        
     }
-    public void excluir (Usuario usuario){
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        transacao = sessao.beginTransaction();
-        sessao.delete (usuario);
-        transacao.commit();
     
-        
+    public void excluir(Usuario usuario){
+        sessao = HibernateUtil.
+                getSessionFactory().openSession();
+        transacao = sessao.beginTransaction();
+        sessao.delete(usuario);
+        transacao.commit();
+        sessao.close();
     }
+    
     public Usuario pesquisar(int id){
         sessao = HibernateUtil.
                 getSessionFactory().openSession();
@@ -46,17 +47,15 @@ public class UsuarioDAO {
                 .uniqueResult();
         return usuario;      
     }
-   
-    public List<Usuario> pesquisar() {
-        sessao = HibernateUtil.getSessionFactory().openSession();
+    
+    public List<Usuario> pesquisar(){
+        sessao = HibernateUtil.
+                getSessionFactory().openSession();
         transacao = sessao.beginTransaction();
-        List<Usuario> usuarios = sessao.createCriteria(Usuario.class).list();
-        
-        return usuarios;
-        
+        List<Usuario> usuarios = sessao.
+                createCriteria(Usuario.class).list();
+        return usuarios;      
     }
-    
-    
     
     
 }
