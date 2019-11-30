@@ -57,5 +57,21 @@ public class UsuarioDAO {
         return usuarios;      
     }
     
+    public Usuario pesquisar(String login, String senha){
+        sessao = HibernateUtil.
+                getSessionFactory().openSession();
+        transacao = sessao.beginTransaction();
+        Usuario usuario = (Usuario) sessao.
+                createCriteria(Usuario.class).add(
+                Restrictions.eq("login", login)).add(
+                Restrictions.eq("senha", senha))
+                .uniqueResult();
+                
+
+        return usuario;      
+        
+ 
+    }
+    
     
 }
